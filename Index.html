@@ -1,11 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OMDb Movie Search</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
-    
+  <nav class="navbar">
+    <div class="logo">🎞️ MOVIE SEARCH🍿</div>
+    <div class="nav-links">
+      <a href="#" id="homeLink">Home</a>
+      <a href="https://www.patreon.com/omdb" target="_blank" rel="noopener">Support OMDb</a>
+    </div>
+  </nav>
+
+  <div class="app">
+    <h1>Discover Movies</h1>
+
+    <div class="controls">
+      <div class="search-bar">
+        <input id="searchInput" type="text" placeholder="Search movies by title…" />
+        <button id="searchBtn">Search</button>
+      </div>
+
+      <select id="sortSelect">
+        <option value="">Sort results…</option>
+        <option value="title">Alphabetical (A–Z)</option>
+        <option value="year">Release Year</option>
+      </select>
+    </div>
+
+    <div id="results" class="results"></div>
+
+    <button id="loadMoreBtn" class="load-more hidden">View More</button>
+    <p id="error" class="error"></p>
+  </div>
+
+  <footer>
+    Movie Search © 2026 | Data Sourced by OMDb API
+  </footer>
+
+
 </body>
 </html>
