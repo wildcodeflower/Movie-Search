@@ -3,45 +3,70 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OMDb Movie Search</title>
+  <title>Movie Search</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
   <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="logo">🎞️ MOVIE SEARCH🍿</div>
+  <nav class="nav">
+    <div class="logo">🎞️ MOVIE SEARCH 🍿</div>
     <div class="nav-links">
       <a href="#" id="homeLink">Home</a>
-      <a href="https://www.patreon.com/omdb" target="_blank" rel="noopener">Support OMDb</a>
+      <a
+        href="https://www.patreon.com/omdb"
+        target="_blank"
+        rel="noopener"
+      >
+        Support OMDb
+      </a>
     </div>
   </nav>
 
-  <div class="app">
-    <h1>Discover Movies</h1>
+  <main class="app">
+    <div id="hero" class="hero">
+      <h1 class="hero-title">
+        <i class="fa-solid fa-film"></i>
+        Find your next favorite <span>movie</span>
+      </h1>
 
-    <div class="controls">
-      <div class="search-bar">
-        <input id="searchInput" type="text" placeholder="Search movies by title…" />
-        <button id="searchBtn">Search</button>
+      <div class="controls">
+        <div class="search-bar">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Search movies by title…"
+          />
+          <button id="searchBtn">Search</button>
+        </div>
+
+        <select id="sortSelect">
+          <option value="">Sort results…</option>
+          <option value="title">Alphabetical (A–Z)</option>
+          <option value="title-desc">Alphabetical (Z–A)</option>
+          <option value="year-desc">Release Year Latest</option>
+          <option value="year-asc">Release Year Oldest</option>
+        </select>
       </div>
-
-      <select id="sortSelect">
-        <option value="">Sort results…</option>
-        <option value="title">Alphabetical (A–Z)</option>
-        <option value="year">Release Year</option>
-      </select>
     </div>
+
+    <p id="loading" class="loading hidden">Loading movies…</p>
+    <p id="error" class="error"></p>
 
     <div id="results" class="results"></div>
 
-    <button id="loadMoreBtn" class="load-more hidden">View More</button>
-    <p id="error" class="error"></p>
-  </div>
+    <button id="loadMoreBtn" class="load-more hidden">
+      View More
+    </button>
+  </main>
 
-  <footer>
+  <footer class="footer">
     Movie Search © 2026 | Data Sourced by OMDb API
   </footer>
 
-
+  <script src="script.js"></script>
 </body>
 </html>
