@@ -4,7 +4,7 @@
 const API_KEY = "bdc5a3b7";
 const RESULTS_PER_PAGE = 6;
 
-// DOM references
+// DOM reference
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
 const resultsEl = document.getElementById("results");
