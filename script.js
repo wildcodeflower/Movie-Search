@@ -9,7 +9,6 @@ const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
 const resultsEl = document.getElementById("results");
 const errorEl = document.getElementById("error");
-const loadMoreBtn = document.getElementById("loadMoreBtn");
 const sortSelect = document.getElementById("sortSelect");
 const loadingEl = document.getElementById("loading");
 const heroEl = document.getElementById("hero");
@@ -18,7 +17,6 @@ const homeLink = document.getElementById("homeLink");
 
 // App state
 let allResults = [];
-let visibleCount = RESULTS_PER_PAGE;
 
 /* --------------------------------
    Event Listeners
@@ -33,8 +31,6 @@ searchInput.addEventListener("keydown", (e) => {
 });
 
 sortSelect.addEventListener("change", applySort);
-
-loadMoreBtn.addEventListener("click", showMore);
 
 homeLink.addEventListener("click", (e) => {
   e.preventDefault();
@@ -56,12 +52,8 @@ async function searchMovies() {
   // Reset UI state
   resultsEl.innerHTML = "";
   errorEl.textContent = "";
-  visibleCount = RESULTS_PER_PAGE;
 
-  // Ensure Load More is hidden until needed
-  loadMoreBtn.classList.remove("visible");
-
-  // Show loading state
+  // Show loading
   loadingEl.classList.remove("hidden");
   await new Promise(requestAnimationFrame);
 
@@ -80,9 +72,10 @@ async function searchMovies() {
       return;
     }
 
-    allResults = data.Search.filter(
-      (item) => item.Type === "movie"
-    );
+    // Store ALL results, but only render first 6
+    allResults = data.Search
+      .filter((item) => item.Type === "movie")
+      .slice(0, RESULTS_PER_PAGE);
 
     applySort();
   } catch (err) {
@@ -117,7 +110,7 @@ function applySort() {
 function renderResults() {
   resultsEl.innerHTML = "";
 
-  allResults.slice(0, visibleCount).forEach((movie) => {
+  allResults.forEach((movie) => {
     const card = document.createElement("div");
     card.className = "card";
 
@@ -148,18 +141,6 @@ function renderResults() {
 
     resultsEl.appendChild(card);
   });
-
-  // ONLY show Load More if more results exist
-  if (visibleCount < allResults.length) {
-    loadMoreBtn.classList.add("visible");
-  } else {
-    loadMoreBtn.classList.remove("visible");
-  }
-}
-
-function showMore() {
-  visibleCount += RESULTS_PER_PAGE;
-  renderResults();
 }
 
 /* --------------------------------
@@ -171,14 +152,10 @@ function resetHome() {
   errorEl.textContent = "";
   loadingEl.classList.add("hidden");
 
-  // Hide Load More definitively
-  loadMoreBtn.classList.remove("visible");
-
   searchInput.value = "";
   sortSelect.value = "";
 
   allResults = [];
-  visibleCount = RESULTS_PER_PAGE;
 
   heroEl.classList.remove("compact");
   heroTitle.classList.remove("hidden");
